@@ -5,7 +5,8 @@ const routerConfig = {
     {
       name: 'Landing',
       path: '/'
-    }
+    },
+    'reportBuilder'
   ]
 }
 
