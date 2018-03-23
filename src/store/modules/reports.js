@@ -1,4 +1,4 @@
-import { fetchReports, deleteReport } from '@/models/reports'
+import { fetchReports, deleteReport, saveReport } from '@/models/reports'
 
 // initial state
 const state = {
@@ -19,6 +19,9 @@ const actions = {
   },
   deleteReport ({ commit }, reportCode) {
     return deleteReport(reportCode).then(() => commit('removeReport', reportCode))
+  },
+  saveReport ({ commit }, report) {
+    return saveReport(report).then(() => commit('updateReport', report))
   }
 }
 
@@ -30,6 +33,14 @@ const mutations = {
   removeReport (state, reportCode) {
     const index = state.all.findIndex(item => item.report_code === reportCode)
     ~index && state.all.splice(index, 1)
+  },
+  updateReport (state, report) {
+    const index = state.all.findIndex(item => item.report_code === report.report_code)
+    if (~index) {
+      state.all.splice(index, 1, report)
+    } else {
+      state.all.push(report)
+    }
   }
 }
 
