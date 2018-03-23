@@ -1,4 +1,4 @@
-import { fetchReports, deleteReport, saveReport } from '@/models/reports'
+import { fetchReports, deleteReport, validReport, saveReport } from '@/models/reports'
 
 // initial state
 const state = {
@@ -19,6 +19,9 @@ const actions = {
   },
   deleteReport ({ commit }, reportCode) {
     return deleteReport(reportCode).then(() => commit('removeReport', reportCode))
+  },
+  validReport ({ commit }, reportCode) {
+    return validReport(reportCode)
   },
   saveReport ({ commit }, report) {
     return saveReport(report).then(() => commit('updateReport', report))
