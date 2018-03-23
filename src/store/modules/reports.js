@@ -1,4 +1,4 @@
-import { fetchReports, deleteReport, validReport, saveReport } from '@/models/reports'
+import { fetchReports, deleteReport, validReport, saveReport } from '@/apis/reports'
 
 // initial state
 const state = {
