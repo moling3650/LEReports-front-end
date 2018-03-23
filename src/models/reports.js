@@ -12,8 +12,13 @@ function validReport (reportCode) {
   return axios.post('/API/Handler.ashx?method=ValidReport', { reportCode }).then(res => res.data.shift())
 }
 
+function saveReport (report) {
+  return axios.post('/API/Handler.ashx?method=SaveReport', report).then(res => res.data)
+}
+
 export {
   fetchReports,
   deleteReport,
-  validReport
+  validReport,
+  saveReport
 }
