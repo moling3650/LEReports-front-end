@@ -9,7 +9,7 @@ function deleteReport (reportCode) {
 }
 
 function validReport (reportCode) {
-  return axios.post('/API/Handler.ashx?method=ValidReport', { reportCode }).then(res => res.data.unshift())
+  return axios.post('/API/Handler.ashx?method=ValidReport', { reportCode }).then(res => res.data.shift())
 }
 
 export {
