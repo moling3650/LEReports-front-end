@@ -16,9 +16,14 @@ function saveReport (report) {
   return axios.post('/API/Handler.ashx?method=SaveReport', report).then(res => res.data)
 }
 
+function fetchReportFields (reportCode) {
+  return axios.post('/API/Handler.ashx?method=GetReportFields', { reportCode }).then(res => res.data)
+}
+
 export {
   fetchReports,
   deleteReport,
   validReport,
-  saveReport
+  saveReport,
+  fetchReportFields
 }
