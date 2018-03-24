@@ -35,7 +35,7 @@ export default {
   },
   watch: {
     reportCode () {
-      console.log(this.reportCode)
+      this.$store.dispatch('getFieldsData', this.reportCode)
     }
   },
   methods: {
