@@ -1,15 +1,22 @@
-import { fetchReports, deleteReport, validReport, saveReport } from '@/apis/reports'
+import { fetchQueryControls } from '@/apis'
+import { fetchReports, deleteReport, validReport, saveReport, fetchReportFields } from '@/apis/reports'
 
 // initial state
 const state = {
-  all: []
+  all: [],
+  fieldsData: [],
+  queryControls: [],
+  loadingFields: false
 }
 
 // getters
 const getters = {
   reports: state => state.all,
   reportOptions: state => state.all.map(item => ({ label: item.report_name, value: item.report_code })),
-  getReportByCode: state => code => code && state.all.find(item => item.report_code === code)
+  getReportByCode: state => code => code && state.all.find(item => item.report_code === code),
+  queryControlOptions: state => state.queryControls,
+  fieldsData: state => state.fieldsData,
+  loadingFields: state => state.loadingFields
 }
 
 // actions
@@ -25,6 +32,15 @@ const actions = {
   },
   saveReport ({ commit }, report) {
     return saveReport(report).then(() => commit('updateReport', report))
+  },
+  getFieldsData  ({ commit }, reportCode) {
+    commit('setLoadingFields', true)
+    return fetchReportFields(reportCode)
+      .then(data => commit('setFieldsData', data))
+      .then(() => commit('setLoadingFields', false))
+  },
+  getQueryControls ({ commit }) {
+    return fetchQueryControls().then(controls => commit('setQueryControls', controls))
   }
 }
 
@@ -44,6 +60,15 @@ const mutations = {
     } else {
       state.all.push(report)
     }
+  },
+  setFieldsData (state, fieldsData) {
+    state.fieldsData = fieldsData
+  },
+  setQueryControls (state, queryControls) {
+    state.queryControls = queryControls
+  },
+  setLoadingFields (state, isLoading) {
+    state.loadingFields = isLoading
   }
 }
 
