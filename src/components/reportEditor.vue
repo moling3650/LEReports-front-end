@@ -49,7 +49,7 @@ export default {
       if (!this.reportCode) {
         return void this.$message({ showClose: true, message: '请先选择报表' })
       }
-      window.open(`${location.origin}${location.pathname}#/report?reportCode=${this.reportCode}`)
+      window.open(`${location.origin}${location.pathname}#/ReportQuerier?reportCode=${this.reportCode}`)
     },
     handleDelete () {
       if (!this.reportCode) {

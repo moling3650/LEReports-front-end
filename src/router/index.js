@@ -6,7 +6,8 @@ const routerConfig = {
       name: 'Landing',
       path: '/'
     },
-    'ReportBuilder'
+    'ReportBuilder',
+    'ReportQuerier'
   ]
 }
 
