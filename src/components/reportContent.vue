@@ -28,32 +28,38 @@
         </template>
       </el-table-column>
     </el-table>
+    <report-field-form ref="form"/>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import reportFieldForm from '@/components/reportFieldForm'
 
 export default {
   name: 'reportContent',
   computed: mapGetters({
     tableData: 'fieldsData',
-    loading: 'loadingFields'
+    loading: 'loadingFields',
+    queryControls: 'queryControlOptions'
   }),
+  components: {
+    reportFieldForm
+  },
   methods: {
     fmtBoolean (row, column, cellValue) {
       return cellValue ? '是' : '否'
     },
     fmtControl (row, column, cellValue) {
-      const control = this.$store.getters.queryControlOptions.find(c => c.value === cellValue)
+      const control = this.queryControls.find(c => c.value === cellValue)
       return control ? control.label : '未知控件'
     },
     fmtWidth (row, column, cellValue) {
       cellValue = cellValue !== undefined ? cellValue : row
       return cellValue ? `${cellValue}px` : '自适应'
     },
-    handleRowEdit () {
-
+    handleRowEdit (idx, row) {
+      this.$refs.form.open(row)
     }
   },
   created () {
