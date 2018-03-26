@@ -20,10 +20,15 @@ function fetchReportFields (reportCode) {
   return axios.post('/API/Handler.ashx?method=GetReportFields', { reportCode }).then(res => res.data)
 }
 
+function updateReportField (fieldForm) {
+  return axios.post('/API/Handler.ashx?method=UpdateReportField', fieldForm).then(res => res.data)
+}
+
 export {
   fetchReports,
   deleteReport,
   validReport,
   saveReport,
-  fetchReportFields
+  fetchReportFields,
+  updateReportField
 }
