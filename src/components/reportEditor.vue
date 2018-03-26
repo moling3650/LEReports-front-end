@@ -12,7 +12,7 @@
         <el-button @click="handleOpen" type="primary">打开报表</el-button>
       </el-col>
     </el-row>
-    <report-form :report-code="reportCode" ref="reportform"/>
+    <report-form :report-code="reportCode" ref="reportform" @update-report-code="setReportCode"/>
   </div>
 </template>
 
@@ -39,6 +39,9 @@ export default {
     }
   },
   methods: {
+    setReportCode (reportCode) {
+      this.reportCode = reportCode
+    },
     handleEdit () {
       this.$refs.reportform.open()
     },

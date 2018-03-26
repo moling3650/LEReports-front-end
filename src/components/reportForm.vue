@@ -72,6 +72,7 @@ export default {
           this.reportForm.query_sql = `SELECT * FROM ${this.reportForm.report_code}`
           this.$store.dispatch('saveReport', Object.assign({}, this.reportForm)).then(res => {
             this.$message.success('保存成功!')
+            this.$emit('update-report-code', this.reportForm.report_code)
             this.visible = false
           })
         } else {
