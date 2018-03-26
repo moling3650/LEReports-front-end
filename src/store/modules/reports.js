@@ -1,5 +1,12 @@
 import { fetchQueryControls } from '@/apis'
-import { fetchReports, deleteReport, validReport, saveReport, fetchReportFields } from '@/apis/reports'
+import {
+  fetchReports,
+  deleteReport,
+  validReport,
+  saveReport,
+  fetchReportFields,
+  updateReportField
+} from '@/apis/reports'
 
 // initial state
 const state = {
@@ -41,6 +48,9 @@ const actions = {
   },
   getQueryControls ({ commit }) {
     return fetchQueryControls().then(controls => commit('setQueryControls', controls))
+  },
+  updateReportField ({ commit }, field) {
+    return updateReportField(field).then(() => commit('updateFieldsData', field))
   }
 }
 
@@ -69,6 +79,10 @@ const mutations = {
   },
   setLoadingFields (state, isLoading) {
     state.loadingFields = isLoading
+  },
+  updateFieldsData (state, field) {
+    const index = state.fieldsData.findIndex(f => f.prop === field.prop)
+    ~index && state.fieldsData.splice(index, 1, field)
   }
 }
 
