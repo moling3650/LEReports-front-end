@@ -23,7 +23,26 @@ const getters = {
   getReportByCode: state => code => code && state.all.find(item => item.report_code === code),
   queryControlOptions: state => state.queryControls,
   fieldsData: state => state.fieldsData,
-  loadingFields: state => state.loadingFields
+  loadingFields: state => state.loadingFields,
+  formItems: state => state.fieldsData.filter(item => item.is_check).map(item => {
+    return {
+      type: item.control_code,
+      required: item.required,
+      span: item.control_span,
+      prop: item.prop,
+      label: item.label
+    }
+  }),
+  fields: state => state.fieldsData.filter(item => item.state).map(item => {
+    return {
+      prop: item.prop,
+      label: item.label,
+      width: item.width,
+      align: item.align,
+      state: item.state,
+      idx: item.idx
+    }
+  })
 }
 
 // actions
