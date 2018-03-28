@@ -1,7 +1,11 @@
 <template>
   <div id="queryContent">
+    <el-button-group :style="{ float: 'right', margin: '5px 0' }">
+      <el-button size="mini" type="primary" @click="openDialog">筛选字段</el-button>
+      <el-button size="mini" type="primary" @click="download">导出</el-button>
+    </el-button-group>
     <div class="z-table">
-      <div class="table-wrap" :style="{ height: (pageSize + 1) * 36 + 'px'}">
+      <div class="table-wrap" :style="{ height: (pageSize + 2) * 36 + 'px'}">
         <el-table v-loading="loading"
           :data="tableData" border stripe size="mini"
           :header-cell-style="{backgroundColor: '#409eff', color: '#fff'}"
@@ -12,6 +16,7 @@
           tooltip-effect="dark"
         >
           <el-table-column v-for="f in fields"
+            v-if="f.state"
             :key="f.prop"
             :prop="f.prop"
             :label="f.label"
@@ -23,14 +28,20 @@
       </div>
       <el-pagination v-if="data.length" background layout="prev, pager, next" :total="data.length" :page-size="pageSize" :current-page.sync="index"/>
     </div>
+    <fields-form ref="dialog"/>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { exportXlsx } from '@/lib/exportData'
+import fieldsForm from '@/components/fieldsForm'
 
 export default {
   name: 'queryContent',
+  components: {
+    fieldsForm
+  },
   props: {
     loading: {
       type: Boolean,
@@ -56,6 +67,15 @@ export default {
   data () {
     return {
       index: 1
+    }
+  },
+  methods: {
+    openDialog () {
+      this.$refs.dialog.open()
+    },
+    download () {
+      const data = [this.fields.map(f => f.label), ...this.data.map(row => this.fields.map(f => row[f.prop]))]
+      exportXlsx(data, this.$route.query.reportCode)
     }
   }
 }
