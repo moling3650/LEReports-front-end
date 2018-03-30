@@ -52,7 +52,7 @@ export default {
       formLabelWidth: '100px',
       rules: {
         report_code: [
-          { validator: checkReportCode, trigger: 'blur' }
+          { required: true, validator: checkReportCode, trigger: 'blur' }
         ],
         report_name: [
           { required: true, message: '请输入报表名称', trigger: 'blur' }
