@@ -1,4 +1,4 @@
-import { fetchQueryControls } from '@/apis'
+import { fetchQueryControls, fetchChartsByReport } from '@/apis'
 import {
   fetchReports,
   deleteReport,
@@ -13,6 +13,7 @@ const state = {
   all: [],
   fieldsData: [],
   queryControls: [],
+  charts: [],
   loadingFields: false
 }
 
@@ -20,6 +21,7 @@ const state = {
 const getters = {
   reports: state => state.all,
   reportOptions: state => state.all.map(item => ({ label: item.report_name, value: item.report_code })),
+  chartOptions: state => state.charts.map(item => ({ label: item.title, value: item.id })),
   getReportByCode: state => code => code && state.all.find(item => item.report_code === code),
   queryControlOptions: state => state.queryControls,
   fieldsData: state => state.fieldsData,
@@ -70,6 +72,9 @@ const actions = {
   },
   updateReportField ({ commit }, field) {
     return updateReportField(field).then(() => commit('updateFieldsData', field))
+  },
+  getChartsByReport  ({ commit }, reportCode) {
+    return fetchChartsByReport(reportCode).then(data => commit('setCharts', data))
   }
 }
 
@@ -102,6 +107,9 @@ const mutations = {
   updateFieldsData (state, field) {
     const index = state.fieldsData.findIndex(f => f.prop === field.prop)
     ~index && state.fieldsData.splice(index, 1, field)
+  },
+  setCharts (state, charts) {
+    state.charts = charts
   }
 }
 
