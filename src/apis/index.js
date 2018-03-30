@@ -12,8 +12,23 @@ function fetchChartsByReport (reportCode) {
   return axios.post('/API/Handler.ashx?method=GetChartsByReport', { reportCode }).then(res => res.data)
 }
 
+function fetchChartTypes () {
+  return axios.post('/API/Handler.ashx?method=GetChartTypes').then(res => res.data)
+}
+
+function saveChart (chart) {
+  return axios.post('/API/Handler.ashx?method=SaveChart', chart)
+}
+
+function deleteChartById (id) {
+  return axios.post('/API/Handler.ashx?method=DeleteChartById', { id })
+}
+
 export {
   fetchQueryControls,
   fetchRecords,
-  fetchChartsByReport
+  fetchChartTypes,
+  fetchChartsByReport,
+  saveChart,
+  deleteChartById
 }
