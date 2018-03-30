@@ -1,7 +1,11 @@
 <template>
     <el-dialog title="筛选字段" :visible.sync="visible">
     <el-checkbox-group v-model="checkList">
-      <el-checkbox v-for="f in options" :key="f.prop" :label="f.prop">{{f.label}}</el-checkbox>
+      <el-row :gutter="20">
+        <el-col :span="8" v-for="f in options" :key="f.prop">
+          <el-checkbox :label="f.prop">{{f.label}}</el-checkbox>
+        </el-col>
+      </el-row>
     </el-checkbox-group>
     <div slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取 消</el-button>
