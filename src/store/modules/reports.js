@@ -1,4 +1,11 @@
-import { fetchQueryControls, fetchChartsByReport } from '@/apis'
+import {
+  fetchQueryControls,
+  fetchChartsByReport,
+  saveChart,
+  fetchChartTypes,
+  deleteChartById
+} from '@/apis'
+
 import {
   fetchReports,
   deleteReport,
@@ -14,6 +21,7 @@ const state = {
   fieldsData: [],
   queryControls: [],
   charts: [],
+  chartTypes: [],
   loadingFields: false
 }
 
@@ -22,7 +30,10 @@ const getters = {
   reports: state => state.all,
   reportOptions: state => state.all.map(item => ({ label: item.report_name, value: item.report_code })),
   chartOptions: state => state.charts.map(item => ({ label: item.title, value: item.id })),
+  fieldOptions: state => state.fieldsData.map(item => ({ label: item.label, value: item.prop })),
+  chartTypeOptions: state => state.chartTypes.map(item => ({ label: item.name, value: item.type })),
   getReportByCode: state => code => code && state.all.find(item => item.report_code === code),
+  getChartByID: state => id => id && state.charts.find(c => c.id === id),
   queryControlOptions: state => state.queryControls,
   fieldsData: state => state.fieldsData,
   loadingFields: state => state.loadingFields,
@@ -73,8 +84,17 @@ const actions = {
   updateReportField ({ commit }, field) {
     return updateReportField(field).then(() => commit('updateFieldsData', field))
   },
-  getChartsByReport  ({ commit }, reportCode) {
+  getChartsByReport ({ commit }, reportCode) {
     return fetchChartsByReport(reportCode).then(data => commit('setCharts', data))
+  },
+  getChartTypes ({ commit }) {
+    return fetchChartTypes().then(data => commit('setChartTypes', data))
+  },
+  saveChart ({ commit }, chart) {
+    return saveChart(chart).then(() => commit('updateCharts', chart))
+  },
+  deleteChart ({ commit }, id) {
+    return deleteChartById(id).then(() => commit('removeChartById', id))
   }
 }
 
@@ -110,6 +130,21 @@ const mutations = {
   },
   setCharts (state, charts) {
     state.charts = charts
+  },
+  setChartTypes (state, chartTypes) {
+    state.chartTypes = chartTypes
+  },
+  updateCharts (state, chart) {
+    if (chart.id > 0) {
+      const index = state.charts.findIndex(c => c.id === chart.id)
+      ~index && state.charts.splice(index, 1, chart)
+    } else {
+      state.charts.push(chart)
+    }
+  },
+  removeChartById (state, id) {
+    const index = state.charts.findIndex(c => c.id === id)
+    ~index && state.charts.splice(index, 1)
   }
 }
 
