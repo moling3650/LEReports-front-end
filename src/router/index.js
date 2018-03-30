@@ -3,8 +3,8 @@ import routerBuilder from '@/lib/routerBuilder'
 const routerConfig = {
   routes: [
     {
-      name: 'Landing',
-      path: '/'
+      path: '/',
+      redirect: '/ReportBuilder'
     },
     'ReportBuilder',
     'ReportQuerier'
