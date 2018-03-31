@@ -1,20 +1,24 @@
 <template>
   <div id="ReportQuerier">
     <query-controls @search="search"/>
-    <query-content :loading="loading" :data="records"/>
+    <query-content :loading="loading" :data="records" :page-size="charts.length ? 7 : 15"/>
+    <chart-content v-if="records.length" :data="records"/>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { fetchRecords } from '@/apis'
 import queryControls from '@/components/queryControls'
 import queryContent from '@/components/queryContent'
+import chartContent from '@/components/chartContent'
 
 export default {
   name: 'ReportQuerier',
   components: {
     queryControls,
-    queryContent
+    queryContent,
+    chartContent
   },
   data () {
     return {
@@ -22,6 +26,9 @@ export default {
       records: []
     }
   },
+  computed: mapGetters([
+    'charts'
+  ]),
   methods: {
     search (params) {
       this.loading = true
@@ -37,6 +44,7 @@ export default {
       this.$message.error('缺少报表编号')
     } else {
       this.$store.dispatch('getFieldsData', this.$route.query.reportCode)
+      this.$store.dispatch('getChartsByReport', this.$route.query.reportCode)
     }
   }
 }
