@@ -28,6 +28,7 @@ const state = {
 // getters
 const getters = {
   reports: state => state.all,
+  charts: state => state.charts,
   reportOptions: state => state.all.map(item => ({ label: item.report_name, value: item.report_code })),
   chartOptions: state => state.charts.map(item => ({ label: item.title, value: item.id })),
   fieldOptions: state => state.fieldsData.map(item => ({ label: item.label, value: item.prop })),
