@@ -30,7 +30,7 @@
         </el-button-group>
       </el-col>
     </el-row>
-    <report-form :report-code="reportCode" ref="reportForm" @update-report-code="setReportCode"/>
+    <report-form :report-code.sync="reportCode" ref="reportForm"/>
     <chart-form :report-code="reportCode" :chart-id="chartId" ref="chartForm"/>
   </div>
 </template>
@@ -69,9 +69,6 @@ export default {
     }
   },
   methods: {
-    setReportCode (reportCode) {
-      this.reportCode = reportCode
-    },
     handleEditReport () {
       this.$refs.reportForm.open()
     },
