@@ -1,104 +1,106 @@
 <template>
-  <el-dialog :title="`${fieldForm.prop}字段修改`" :visible.sync="visible">
-    <el-form :model="fieldForm" ref="fieldForm">
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">字段标签</label>
-            </el-col>
-            <el-col :span="16">
-              <el-input v-model="fieldForm.label"/>
-            </el-col>
-          </el-row>
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">字段宽度</label>
-            </el-col>
-            <el-col :span="15">
-              <el-slider v-model="fieldForm.width" :min="0" :max="300" :step="10" :format-tooltip="fmtWidth"/>
-            </el-col>
-          </el-row>
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">字段排序</label>
-            </el-col>
-            <el-col :span="15">
-              <el-slider v-model="fieldForm.idx" :min="1"/>
-            </el-col>
-          </el-row>
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">字段对齐</label>
-            </el-col>
-            <el-col :span="16">
-              <el-select v-model="fieldForm.align">
-                <el-option v-for="key in ['left', 'center', 'right']" :key="key" :value="key"/>
-              </el-select>
-            </el-col>
-          </el-row>
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">是否可见</label>
-            </el-col>
-            <el-col :span="16">
-              <el-switch v-model="fieldForm.state" :active-value="1" :inactive-value="0"/>
-            </el-col>
-          </el-row>
-        </el-col>
+  <div id="reportFieldForm">
+    <el-dialog :title="`${fieldForm.prop}字段修改`" :visible.sync="visible" :close-on-click-modal="false">
+      <el-form :model="fieldForm" ref="fieldForm">
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">字段标签</label>
+              </el-col>
+              <el-col :span="16">
+                <el-input v-model="fieldForm.label"/>
+              </el-col>
+            </el-row>
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">字段宽度</label>
+              </el-col>
+              <el-col :span="15">
+                <el-slider v-model="fieldForm.width" :min="0" :max="300" :step="10" :format-tooltip="fmtWidth"/>
+              </el-col>
+            </el-row>
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">字段排序</label>
+              </el-col>
+              <el-col :span="15">
+                <el-slider v-model="fieldForm.idx" :min="1"/>
+              </el-col>
+            </el-row>
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">字段对齐</label>
+              </el-col>
+              <el-col :span="16">
+                <el-select v-model="fieldForm.align">
+                  <el-option v-for="key in ['left', 'center', 'right']" :key="key" :value="key"/>
+                </el-select>
+              </el-col>
+            </el-row>
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">是否可见</label>
+              </el-col>
+              <el-col :span="16">
+                <el-switch v-model="fieldForm.state" :active-value="1" :inactive-value="0"/>
+              </el-col>
+            </el-row>
+          </el-col>
 
-        <el-col :span="12">
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">是否可查询</label>
-            </el-col>
-            <el-col :span="16">
-              <el-switch v-model="fieldForm.is_check" :active-value="1" :inactive-value="0"/>
-            </el-col>
-          </el-row>
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">控件名称</label>
-            </el-col>
-            <el-col :span="16">
-              <el-select v-model="fieldForm.control_code" filterable>
-                <el-option v-for="qc in queryControls" :key="qc.value" :label="qc.label" :value="qc.value"/>
-              </el-select>
-            </el-col>
-          </el-row>
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">是否必填</label>
-            </el-col>
-            <el-col :span="16">
-              <el-switch v-model="fieldForm.required" :active-value="1" :inactive-value="0"/>
-            </el-col>
-          </el-row>
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">控件宽度</label>
-            </el-col>
-            <el-col :span="16">
-              <el-slider v-model="fieldForm.control_span" :min="1" :max="24"/>
-            </el-col>
-          </el-row>
-          <el-row :gutter="30">
-            <el-col :span="8">
-              <label class="form-label">选择器API</label>
-            </el-col>
-            <el-col :span="16">
-              <el-input v-model="fieldForm.options_api"/>
-            </el-col>
-          </el-row>
-        </el-col>
+          <el-col :span="12">
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">是否可查询</label>
+              </el-col>
+              <el-col :span="16">
+                <el-switch v-model="fieldForm.is_check" :active-value="1" :inactive-value="0"/>
+              </el-col>
+            </el-row>
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">控件名称</label>
+              </el-col>
+              <el-col :span="16">
+                <el-select v-model="fieldForm.control_code" filterable>
+                  <el-option v-for="qc in queryControls" :key="qc.value" :label="qc.label" :value="qc.value"/>
+                </el-select>
+              </el-col>
+            </el-row>
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">是否必填</label>
+              </el-col>
+              <el-col :span="16">
+                <el-switch v-model="fieldForm.required" :active-value="1" :inactive-value="0"/>
+              </el-col>
+            </el-row>
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">控件宽度</label>
+              </el-col>
+              <el-col :span="16">
+                <el-slider v-model="fieldForm.control_span" :min="1" :max="24"/>
+              </el-col>
+            </el-row>
+            <el-row :gutter="30">
+              <el-col :span="8">
+                <label class="form-label">选择器API</label>
+              </el-col>
+              <el-col :span="16">
+                <el-input v-model="fieldForm.options_api"/>
+              </el-col>
+            </el-row>
+          </el-col>
 
-      </el-row>
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取 消</el-button>
-      <el-button type="primary" @click="saveReportField">确 定</el-button>
-    </div>
-  </el-dialog>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取 消</el-button>
+        <el-button type="primary" @click="saveReportField">确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>

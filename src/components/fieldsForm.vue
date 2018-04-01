@@ -1,24 +1,26 @@
 <template>
-    <el-dialog title="筛选字段" :visible.sync="visible">
-    <el-checkbox-group v-model="checkList">
-      <el-row :gutter="20">
-        <el-col :span="8" v-for="f in options" :key="f.prop">
-          <el-checkbox :label="f.prop">{{f.label}}</el-checkbox>
-        </el-col>
-      </el-row>
-    </el-checkbox-group>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取 消</el-button>
-      <el-button type="primary" @click="updateFields">确 定</el-button>
-    </div>
-  </el-dialog>
+  <div id="reportFieldForm">
+    <el-dialog title="筛选字段" :visible.sync="visible" :close-on-click-modal="false">
+      <el-checkbox-group v-model="checkList">
+        <el-row :gutter="20">
+          <el-col :span="8" v-for="f in options" :key="f.prop">
+            <el-checkbox :label="f.prop">{{f.label}}</el-checkbox>
+          </el-col>
+        </el-row>
+      </el-checkbox-group>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取 消</el-button>
+        <el-button type="primary" @click="updateFields">确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'fieldsForm',
+  name: 'c',
   data () {
     return {
       visible: false,

@@ -1,18 +1,20 @@
 <template>
-  <el-dialog :title="reportCode ? '编辑报表' : '新建报表'" :visible.sync="visible">
-    <el-form :model="reportForm" :rules="rules" ref="reportForm">
-      <el-form-item label="报表编号" :label-width="formLabelWidth" prop="report_code">
-        <el-input v-model="reportForm.report_code" :disabled="reportCode !== ''"/>
-      </el-form-item>
-      <el-form-item label="报表名称" :label-width="formLabelWidth" prop="report_name">
-        <el-input v-model="reportForm.report_name"/>
-      </el-form-item>
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取 消</el-button>
-      <el-button type="primary" @click="saveReport">确 定</el-button>
-    </div>
-  </el-dialog>
+  <div id="reportForm">
+    <el-dialog :title="reportCode ? '编辑报表' : '新建报表'" :visible.sync="visible" :close-on-click-modal="false">
+      <el-form :model="reportForm" :rules="rules" ref="reportForm">
+        <el-form-item label="报表编号" :label-width="formLabelWidth" prop="report_code">
+          <el-input v-model="reportForm.report_code" :disabled="reportCode !== ''"/>
+        </el-form-item>
+        <el-form-item label="报表名称" :label-width="formLabelWidth" prop="report_name">
+          <el-input v-model="reportForm.report_name"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取 消</el-button>
+        <el-button type="primary" @click="saveReport">确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>

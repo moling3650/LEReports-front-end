@@ -1,45 +1,47 @@
 <template>
-  <el-dialog :title="chartId ? '编辑图表' : '新建图表'" :visible.sync="visible">
-    <el-form :model="form" :rules="rules" ref="form">
-      <el-form-item label="标题" :label-width="formLabelWidth" prop="title">
-        <el-input v-model="form.title"/>
-      </el-form-item>
-      <el-form-item label="图表" :label-width="formLabelWidth" prop="type">
-        <el-select v-model="form.type" placeholder="请选择图表">
-          <el-option
-            v-for="item in typeOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="类别" :label-width="formLabelWidth" prop="label">
-        <el-select v-model="form.label" placeholder="请选择类别">
-          <el-option
-            v-for="item in fieldOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="数据" :label-width="formLabelWidth" prop="value">
-        <el-select v-model="form.value" multiple placeholder="请选择数据">
-          <el-option
-            v-for="item in fieldOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取 消</el-button>
-      <el-button type="primary" @click="saveChart">确 定</el-button>
-    </div>
-  </el-dialog>
+  <div id="chartForm">
+    <el-dialog :title="chartId ? '编辑图表' : '新建图表'" :visible.sync="visible" :close-on-click-modal="false">
+      <el-form :model="form" :rules="rules" ref="form">
+        <el-form-item label="标题" :label-width="formLabelWidth" prop="title">
+          <el-input v-model="form.title"/>
+        </el-form-item>
+        <el-form-item label="图表" :label-width="formLabelWidth" prop="type">
+          <el-select v-model="form.type" placeholder="请选择图表">
+            <el-option
+              v-for="item in typeOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="类别" :label-width="formLabelWidth" prop="label">
+          <el-select v-model="form.label" placeholder="请选择类别">
+            <el-option
+              v-for="item in fieldOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="数据" :label-width="formLabelWidth" prop="value">
+          <el-select v-model="form.value" multiple placeholder="请选择数据">
+            <el-option
+              v-for="item in fieldOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visible = false">取 消</el-button>
+        <el-button type="primary" @click="saveChart">确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
