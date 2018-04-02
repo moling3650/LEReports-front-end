@@ -66,6 +66,19 @@ export default {
         return
       }
 
+      const dataMap = {}
+      this.data.forEach(item => {
+        const key = item[this.catgory]
+        if (!dataMap[key]) {
+          dataMap[key] = 0
+        }
+        dataMap[key] += parseFloat(item[this.values[0]]) || 0
+      })
+
+      const data = Object.entries(dataMap).sort((a, b) => b[1] - a[1])
+      data.splice(9, data.length, ['其他', data.slice(10).reduce((total, item) => total + item[1], 0)])
+      console.log(data)
+
       this.chart.setOption({
         title: {
           text: this.title
@@ -90,10 +103,12 @@ export default {
               }
             }
           },
-          data: this.data.map(item => ({
-            name: item[this.catgory],
-            value: item[this.values[0]]
-          }))
+          data: data.map(item => {
+            return {
+              name: item[0],
+              value: item[1]
+            }
+          })
         }]
       }, true)
     },
