@@ -77,7 +77,6 @@ export default {
 
       const data = Object.entries(dataMap).sort((a, b) => b[1] - a[1])
       data.splice(9, data.length, ['其他', data.slice(10).reduce((total, item) => total + item[1], 0)])
-      console.log(data)
 
       this.chart.setOption({
         title: {
