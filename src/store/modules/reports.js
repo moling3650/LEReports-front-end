@@ -91,8 +91,8 @@ const actions = {
   getChartTypes ({ commit }) {
     return fetchChartTypes().then(data => commit('setChartTypes', data))
   },
-  saveChart ({ commit }, chart) {
-    return saveChart(chart).then(() => commit('updateCharts', chart))
+  saveChart ({ dispatch }, chart) {
+    return saveChart(chart).then(() => dispatch('getChartsByReport', chart.report_code))
   },
   deleteChart ({ commit }, id) {
     return deleteChartById(id).then(() => commit('removeChartById', id))
@@ -134,14 +134,6 @@ const mutations = {
   },
   setChartTypes (state, chartTypes) {
     state.chartTypes = chartTypes
-  },
-  updateCharts (state, chart) {
-    if (chart.id > 0) {
-      const index = state.charts.findIndex(c => c.id === chart.id)
-      ~index && state.charts.splice(index, 1, chart)
-    } else {
-      state.charts.push(chart)
-    }
   },
   removeChartById (state, id) {
     const index = state.charts.findIndex(c => c.id === id)
